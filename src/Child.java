@@ -37,4 +37,15 @@ public class Child {
     public void setAge(double age) {
         this.age = age;
     }
+
+    @Override
+    public String toString() {
+        return
+                " name='" + name +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", age=" + age +
+                + '\''
+                ;
+    }
 }

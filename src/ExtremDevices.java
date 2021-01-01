@@ -6,6 +6,7 @@ public class ExtremDevices extends Devices {
         //this.guardianApproval = guardianApproval;
     }
 
+
     public boolean isGuardianApproval() {
         return guardianApproval;
     }
