@@ -19,10 +19,10 @@ public class Main {
 
 
         while(out){
-            System.out.println("Register child");
-            System.out.println("Manage Ticket");
-            System.out.println("Exit park");
-            System.out.println("Exit");
+            System.out.println("1 Register child");
+            System.out.println("2 Manage Ticket");
+            System.out.println("3 Exit park");
+            System.out.println("4 Exit");
 
             String s = scan.nextLine();
             s=s.toLowerCase();
@@ -31,8 +31,8 @@ public class Main {
                     break;
 
                 case "manageticket":
-                    System.out.println("Add ride");
-                    System.out.println("Remove ride");
+                    System.out.println("2.1 Add ride");
+                    System.out.println("2.2 Remove ride");
                     s = scan.nextLine();
                     s=s.toLowerCase();
                     switch (s){
