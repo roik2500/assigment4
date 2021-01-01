@@ -1,5 +1,10 @@
 public class ElectronicBracelet {
     private Enrollment enrollment;
+    public ElectronicBracelet(Enrollment enrollment) {
+        this.enrollment = enrollment;
+    }
+
+
 
     public Enrollment getEnrollment() {
         return enrollment;

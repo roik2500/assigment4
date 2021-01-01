@@ -1,11 +1,14 @@
+import java.util.HashMap;
+import java.util.HashSet;
+
 public class Guardian {
     private User user;
+    private String name;
+    private HashMap<Integer,Child> list_of_child; // key=id number  value=child
 
-    public User getUser() {
-        return user;
+    public Guardian(String name) {
+    this.name=name;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+
 }

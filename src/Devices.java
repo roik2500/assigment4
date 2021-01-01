@@ -1,17 +1,31 @@
 public class Devices {
-    private Park park;
-    private Manufacturer manufacturer;
-    private double maxHeight;
-    private double maxWeight;
-    private double maxAge;
+    //private Park park;
+    protected Manufacturer manufacturer; // check if we nedd to update to constructor
+    protected double minHeight;
+    protected double maxWeight;
+    protected double minAge;
+    protected String Name;
 
-    public Park getPark() {
-        return park;
+    public Devices(String Name, double minHeight, double maxWeight, double minAge) {
+       // this.park = park;
+       // this.manufacturer = manufacturer;
+        this.Name=Name;
+        this.minHeight = minHeight;
+        this.maxWeight = maxWeight;
+        this.minAge = minAge;
     }
 
-    public void setPark(Park park) {
-        this.park = park;
+    @Override
+    public String toString() {
+        return
+                "minHeight=" + minHeight +
+                ", maxWeight=" + maxWeight +
+                ", minAge=" + minAge +
+                ", Name='" + Name + '\'';
     }
+
+
+
 
     public Manufacturer getManufacturer() {
         return manufacturer;
@@ -21,12 +35,12 @@ public class Devices {
         this.manufacturer = manufacturer;
     }
 
-    public double getMaxHeight() {
-        return maxHeight;
+    public double getMinHeight() {
+        return minHeight;
     }
 
-    public void setMaxHeight(double maxHeight) {
-        this.maxHeight = maxHeight;
+    public void setMinHeight(double minHeight) {
+        this.minHeight = minHeight;
     }
 
     public double getMaxWeight() {
@@ -37,11 +51,11 @@ public class Devices {
         this.maxWeight = maxWeight;
     }
 
-    public double getMaxAge() {
-        return maxAge;
+    public double getMinAge() {
+        return minAge;
     }
 
-    public void setMaxAge(double maxAge) {
-        this.maxAge = maxAge;
+    public void setMinAge(double minAge) {
+        this.minAge = minAge;
     }
 }
