@@ -87,6 +87,7 @@ public class Main {
                                 System.out.println("Do you want to choose more Device?");
                                 if(scan.hasNext("yes")){chooseMore=true;}
                                 else (scan.hasNext("No")){chooseMore=false;}
+
                             }
 
 
