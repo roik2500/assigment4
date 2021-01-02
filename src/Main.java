@@ -14,7 +14,7 @@ public class Main {
         mainCreditCompany.addCreditCardInList(mainCreditCard);
         mainUser.setCreditCard(mainCreditCard);
         HashMap<String,Child> childrens= new HashMap<String, Child>();
-        HashMap<String,Devices> list_of_device=new HashMap<String, Devices>();
+        HashMap<Integer,Devices> list_of_device=new HashMap<Integer, Devices>();
 
         Devices MambaRide= new ExtremDevices("Mamba Ride",1.4,0,12);
         Devices GiantWheel=new Devices("Giant Wheel",0,0,0);
@@ -60,11 +60,37 @@ public class Main {
                     switch (s){
                         case "add":
                             System.out.println("This devices are available for this child");
-                            for(Devices d:list_of_device.values())
-                                if(d.childCheck(c))
-                                    System.out.println(d);//print all available devices
+                            int id=1;
+                            for(Devices d:list_of_device.values()){
+                                if(d.childCheck(c)){
+                                    System.out.print(id+":");//print all available devices
+                                    System.out.println(d);
+                                }
+                                id++;
+                            }
+
+
                             System.out.println("Choose a device to add");
-                            s = scan.nextLine();
+                            boolean chooseMore=True;
+
+                            while (chooseMore){
+                                int user = scan.nextInt();
+                                if(list_of_device.get(user) instanceof ExtremDevices){
+                                    System.out.println("This is Extreme Device:");
+                                    System.out.println("1. Agree");
+                                    System.out.println("2. Disagree");
+                                    if (scan.nextInt()==1){ list_of_device.put(id,list_of_device.get(user));}
+                                }
+                                else {list_of_device.put(id,list_of_device.get(user));}
+
+                                System.out.println("Adding successfully");
+                                System.out.println("Do you want to choose more Device?");
+                                if(scan.hasNext("yes")){chooseMore=true;}
+                                else (scan.hasNext("No")){chooseMore=false;}
+                            }
+
+
+
                             Devices d= list_of_device.get(s);//the device
                             /*
                             here we need to add the device to be connect with the child

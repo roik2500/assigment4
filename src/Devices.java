@@ -5,6 +5,7 @@ public class Devices {
     protected double maxWeight;
     protected double minAge;
     protected String Name;
+    protected double Price;
 
     public Devices(String Name, double minHeight, double maxWeight, double minAge) {
        // this.park = park;
@@ -13,6 +14,7 @@ public class Devices {
         this.minHeight = minHeight;
         this.maxWeight = maxWeight;
         this.minAge = minAge;
+
     }
     protected boolean childCheck(Child c){
         if(c.getAge()<minAge)
@@ -27,7 +29,7 @@ public class Devices {
     @Override
     public String toString() {
         return
-                "minHeight=" + minHeight +
+                "Price="+Price +",minHeight=" + minHeight +
                 ", maxWeight=" + maxWeight +
                 ", minAge=" + minAge +
                 ", Name='" + Name + '\'';
@@ -35,6 +37,9 @@ public class Devices {
 
 
 
+    public void setPrice(double price) {
+        Price = price;
+    }
 
     public Manufacturer getManufacturer() {
         return manufacturer;
