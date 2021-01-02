@@ -71,7 +71,7 @@ public class Main {
 
 
                             System.out.println("Choose a device to add");
-                            boolean chooseMore=True;
+                            boolean chooseMore=true;
 
                             while (chooseMore){
                                 int user = scan.nextInt();
