@@ -14,7 +14,7 @@ public class Main {
         mainCreditCompany.addCreditCardInList(mainCreditCard);
         mainUser.setCreditCard(mainCreditCard);
         HashMap<String,Child> childrens= new HashMap<String, Child>();
-        HashMap<Integer,Devices> list_of_device=new HashMap<Integer, Devices>();
+        HashMap<String,Devices> list_of_device=new HashMap<String, Devices>();
 
         Devices MambaRide= new ExtremDevices("Mamba Ride",1.4,0,12);
         Devices GiantWheel=new Devices("Giant Wheel",0,0,0);
@@ -59,6 +59,8 @@ public class Main {
                     s=s.toLowerCase();
                     switch (s){
                         case "add":
+                            boolean chooseMore=true;
+                            while (chooseMore){
                             System.out.println("This devices are available for this child");
                             int id=1;
                             for(Devices d:list_of_device.values()){
@@ -71,31 +73,34 @@ public class Main {
 
 
                             System.out.println("Choose a device to add");
-                            boolean chooseMore=true;
+                            s = scan.nextLine();
+                            Devices d= list_of_device.get(s);//the device
 
-                            while (chooseMore){
-                                int user = scan.nextInt();
-                                if(list_of_device.get(user) instanceof ExtremDevices){
+
+
+                                if(d instanceof ExtremDevices){
                                     System.out.println("This is Extreme Device:");
                                     System.out.println("1. Agree");
                                     System.out.println("2. Disagree");
-                                    if (scan.nextInt()==1){ list_of_device.put(id,list_of_device.get(user));}
+                                    if (scan.nextInt()==1){
+                                        c.getEnrollment().getElectronicCard().getGuardianControl().setAmountEntries(c.getEnrollment().getElectronicCard().getGuardianControl().getAmountEntries()+1);//add an entry
+                                        System.out.println("Adding successfully");
+                                    }
+                                    else{
+                                        System.out.println("The guardian does not agreed");
+                                    }
                                 }
-                                else {list_of_device.put(id,list_of_device.get(user));}
+                                else {
+                                    c.getEnrollment().getElectronicCard().getGuardianControl().setAmountEntries(c.getEnrollment().getElectronicCard().getGuardianControl().getAmountEntries()+1);//add an entry
+                                    System.out.println("Adding successfully");
+                                }
 
-                                System.out.println("Adding successfully");
                                 System.out.println("Do you want to choose more Device?");
-                                if(scan.hasNext("yes")){chooseMore=true;}
-                                else (scan.hasNext("No")){chooseMore=false;}
+                                if(scan.hasNext("Yes")){chooseMore=true;}
+                                else {chooseMore=false;}
 
                             }
 
-
-
-                            Devices d= list_of_device.get(s);//the device
-                            /*
-                            here we need to add the device to be connect with the child
-                             */
 
                             break;
 
