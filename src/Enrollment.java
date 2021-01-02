@@ -18,8 +18,17 @@ public class Enrollment {
     }
 
 
+    public int endVisitAndPay(){
+        int amount= purchasesAccount.getAmount();
+        return amount;
+    }
 
-
+    public void deleteEnrollment(){
+        purchasesAccount.deletePurchasesAccount();
+        child.setEnrollment(null);
+        guardian.removeEnrollmentToList(this);
+        electronicBracelet=null;
+    }
 
 
 

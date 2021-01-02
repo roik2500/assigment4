@@ -14,6 +14,15 @@ public class Devices {
         this.maxWeight = maxWeight;
         this.minAge = minAge;
     }
+    protected boolean childCheck(Child c){
+        if(c.getAge()<minAge)
+            return false;
+        if(c.getHeight()<minHeight)
+            return false;
+        if(c.getWeight()>maxWeight)
+            return false;
+        return true;
+    }
 
     @Override
     public String toString() {
