@@ -4,6 +4,7 @@ public class Child {
     private double weight;
     private double age;
     private String name;
+    private  Enrollment enrollment;
 
     public Child(Guardian guardian, double height, double weight, double age, String name) {
         this.guardian = guardian;
@@ -13,29 +14,39 @@ public class Child {
         this.name = name;
     }
 
-    public Guardian getGuardian() {
-        return guardian;
-    }
+
+    //Setter
     public void setGuardian(Guardian guardian) {
         this.guardian = guardian;
     }
-    public double getHeight() {
-        return height;
+    public void setAge(double age) {
+        this.age = age;
     }
     public void setHeight(double height) {
         this.height = height;
     }
-    public double getWeight() {
-        return weight;
-    }
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+    public void setEnrollment(Enrollment enrollment) {
+        this.enrollment = enrollment;
+    }
+
+    //Getter
+    public Guardian getGuardian() {
+        return guardian;
+    }
+    public double getHeight() {
+        return height;
+    }
+    public double getWeight() {
+        return weight;
     }
     public double getAge() {
         return age;
     }
-    public void setAge(double age) {
-        this.age = age;
+    public Enrollment getEnrollment() {
+        return enrollment;
     }
 
     @Override
