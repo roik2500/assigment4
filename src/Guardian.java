@@ -26,8 +26,15 @@ public class Guardian {
 
     //Setter
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     //Getter
+
+    public User getUser() {
+        return user;
+    }
     public ArrayList<Enrollment> getEnrollmentList() {
         return enrollmentList;
     }

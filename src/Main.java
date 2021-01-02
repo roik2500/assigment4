@@ -5,6 +5,14 @@ public class Main {
 
 
     public static void main(String[] args) {
+        Guardian mainGuardian= new Guardian("bob");
+        User mainUser = new User() ;
+        mainGuardian.setUser(mainUser);
+        mainUser.setGuardian(mainGuardian);
+        CreditCompany mainCreditCompany = new CreditCompany("cal",9999);
+        CreditCard mainCreditCard= new CreditCard(mainCreditCompany,"777",mainUser);
+        mainCreditCompany.addCreditCardInList(mainCreditCard);
+        mainUser.setCreditCard(mainCreditCard);
         HashMap<String,Child> childrens= new HashMap<String, Child>();
         HashMap<String,Devices> list_of_device=new HashMap<String, Devices>();
 
@@ -70,7 +78,9 @@ public class Main {
                     break;
 
                 case "exitpark":
-
+                    ExitParkControl exitParkControl =new ExitParkControl(mainGuardian);
+                    exitParkControl.setEnrollmentList(mainGuardian.getEnrollmentList());
+                    exitParkControl.endVisitInPark();
                     break;
 
                 case "exit":
