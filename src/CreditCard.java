@@ -2,15 +2,18 @@ public class CreditCard {
     private CreditCompany creditCompany;
     private String creditNumber;
     private User user;
+    private double balance;
 
-    public CreditCard(CreditCompany creditCompany, String creditNumber, User user) {
+
+    public CreditCard(CreditCompany creditCompany, String creditNumber, User user, int balance) {
         this.creditCompany = creditCompany;
         this.creditNumber = creditNumber;
         this.user = user;
+        this.balance = balance;
     }
 
     public boolean makePayment(int amount){
-        return creditCompany.approvePayment(amount);
+        return creditCompany.approvePayment(amount,this.creditNumber);
     }
 
     public void deleteCreditCard(){
@@ -28,6 +31,7 @@ public class CreditCard {
     public String getCreditNumber() {
         return creditNumber;
     }
+    public double getBalance() { return balance;}
 
     //Setter
     public void setUser(User user) {
@@ -39,4 +43,5 @@ public class CreditCard {
     public void setCreditCompany(CreditCompany creditCompany) {
         this.creditCompany = creditCompany;
     }
+    public void setBalance(double balance) {  this.balance = balance; }
 }

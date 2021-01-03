@@ -2,13 +2,16 @@ public class PurchasesAccount {
     private Enrollment enrollment;
     private int amount;
 
-    public PurchasesAccount(Enrollment enrollment, int amount) {
+    public PurchasesAccount( int amount) {
         this.enrollment = enrollment;
         this.amount = amount;
     }
 
     public void updateAmount(int price){
         amount+=price;
+    }
+    public void updateEnrollment(Enrollment e){
+        this.enrollment=e;
     }
 
     public void deletePurchasesAccount(){

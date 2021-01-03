@@ -14,6 +14,13 @@ public class Child {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     //Setter
     public void setGuardian(Guardian guardian) {

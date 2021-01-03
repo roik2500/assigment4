@@ -7,8 +7,14 @@ public class Enrollment {
     private String id;
     private String password;
 
-    public Enrollment(ElectronicBracelet electronicBracelet, ElectronicCard electronicCard, PurchasesAccount purchasesAccount, Child child, Guardian guardian, String id, String password) {
-        this.electronicBracelet = electronicBracelet;
+    public Enrollment(String id,String password) {
+        this.id=id;
+        this.password=password;
+
+    }
+
+    public Enrollment(ElectronicCard electronicCard, PurchasesAccount purchasesAccount, Child child, Guardian guardian, String id, String password) {
+        //this.electronicBracelet = electronicBracelet;
         this.electronicCard = electronicCard;
         this.purchasesAccount = purchasesAccount;
         this.child = child;
