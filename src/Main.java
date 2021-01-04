@@ -43,12 +43,14 @@ public class Main {
                     //child details and checking invalid inputs
                     boolean isFinish = false;
                     boolean ageBoolean = false;
-                    //boolean ageBoolean = true;
                     boolean nameBoolean = false;
-                    //boolean nameBoolean = true;
+                    boolean heightBoolean = false;
+                    boolean weightBoolean = false;
                     String nameChild = "";
+                    double ageChild = 0;
+                    double heightChild = 0;
+                    double weightChild = 0;
                     Scanner scanner = new Scanner(System.in);
-                    int ageChild = 0;
                     while (!isFinish) {
                         if (!nameBoolean) {
                             System.out.println("Enter the name of the child");
@@ -61,55 +63,56 @@ public class Main {
                                 ageChild = scanner.nextInt();
                                 ageBoolean = ageChild > 0;
                             } catch (InputMismatchException e) {
-                                //System.out.println(e.fillInStackTrace());
                             }
                         }
-                        /*
-                        ask for info
-                         */
-                        Child c =new Child();
+                        if (!heightBoolean) {
+                            System.out.println("Enter the height of the child");
+                            try {
+                                heightChild = scanner.nextInt();
+                                heightBoolean = heightChild > 0;
+                            } catch (InputMismatchException e) {
+                            }
+                        }
+                        if (!weightBoolean) {
+                            System.out.println("Enter the height of the child");
+                            try {
+                                weightChild = scanner.nextInt();
+                                weightBoolean = weightChild > 0;
+                            } catch (InputMismatchException e) {
+                            }
+                        }
+                        isFinish = (nameBoolean && ageBoolean && weightBoolean && heightBoolean);
+                    }
+                    String creditNumber = "";
+                    int amountLimit = -1;
+                    boolean validCreditCard = false;
+                    System.out.println("Enter your credit card number");
+                    try {
+                        creditNumber = scanner.nextLine();
+                    } catch (InputMismatchException e) {
+                    }
+                    System.out.println("Enter your amount limit");
+                    try {
+                        amountLimit = scanner.nextInt();
+                    } catch (InputMismatchException e) {
+                    }
+                    validCreditCard = mainCreditCompany.isValidDetails(amountLimit, creditNumber);
+                    if (validCreditCard) {
+                        Child c =new Child(mainGuardian,heightChild,weightChild,ageChild,nameChild);
                         childrens.put(c.getName(),c);
-                        /*
-                        credit number
-                        balance
-                         */
-                        // isValidDetails
                         if(mainGuardian.getUser().getCreditCard()!=null) {
-                            if (mainGuardian.getUser().getCreditCard().getCreditNumber() == "credit number") {
+                            if (mainGuardian.getUser().getCreditCard().getCreditNumber().equals(creditNumber)) {
                                 /*
-                                קיים אשראי עם אותו מספר
+                                החלטנו שיהיה רק כרטיס אחד למלווה?
                                  */
 
                             }
 
                         }
-                        else {
-
-                              //creat
-                            CreditCard mainCreditCard = new CreditCard(mainCreditCompany, "777", mainUser, 1000);
-
-                            mainCreditCompany.addCreditCardInList(mainCreditCard);
-                            mainUser.setCreditCard(mainCreditCard);
-                        }
-
-                        Enrollment enrollment=new Enrollment(Integer.toString(id_count),Integer.toString(password_count));
-                        /*
-                        8-10
-                        ליצור את כל האובייקטים שקיימים בעולם כולו
-                        לזכור להוסיף לרשימת כל האוביקטים
-                         */
-
-                        //11
-                        //"שוקלים"
-
-
-                        electronicCard.checkweight(//11);
-
-
-                        isFinish = (nameBoolean && ageBoolean);
-
-                        //   int[] array = enrollmentControl.makeEnrollment(); //output will be [id, password]
+                        System.out.println("Registration succeeded! ☻");
                     }
+                    else
+                        System.out.println("Registration could not be successful ☺");
                     break;
 
 

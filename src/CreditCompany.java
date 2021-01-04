@@ -14,7 +14,7 @@ public class CreditCompany {
         this.creditCards=new HashMap<String,CreditCard>();
     }
 
-    public boolean isValidDetails(int limitAmount, int creditNumber){
+    public boolean isValidDetails(int limitAmount, String creditNumber){
         CreditCard creditCard = creditCards.get(creditNumber);
         if(creditCard != null)
             return creditCard.getBalance() >= limitAmount; //based on the amount in credit card

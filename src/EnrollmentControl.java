@@ -28,20 +28,7 @@ public class EnrollmentControl
 
 
         //get details for credit card
-        System.out.println("Enter your credit card number");
-        try {
-            creditNumber = scanner.nextInt();
-        } catch (InputMismatchException e) {
-        }
-        System.out.println("Enter your amount limit");
-        try {
-            amountLimit = scanner.nextInt();
-        } catch (InputMismatchException e) {
-        }
-        validCreditCard = creditCompany.isValidDetails(amountLimit, creditNumber);
-        if (validCreditCard) {
 
-        }
         return null;
     }
 
