@@ -34,6 +34,8 @@ public class Enrollment {
         child.setEnrollment(null);
         guardian.removeEnrollmentToList(this);
         electronicBracelet=null;
+        electronicCard.deleteElectronicCard();
+        electronicCard=null;
     }
 
 

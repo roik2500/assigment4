@@ -33,6 +33,12 @@ public class ElectronicCard {
         this.height=height;
     }
 
+    public void deleteElectronicCard(){
+        enrollment=null;
+        guardianControl=null;
+        devices.clear();
+    }
+
     public void setDevices(HashMap<String, Devices> devices) {
         this.devices = devices;
     }

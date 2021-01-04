@@ -17,7 +17,6 @@ public class CreditCard {
     }
 
     public void deleteCreditCard(){
-        creditCompany.removeCreditCardFromList(this);
         user=null;
     }
 
