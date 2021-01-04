@@ -5,6 +5,7 @@ public class GuardianControl {
     private TicketStatus status;
     private double limitTime;
 
+
     public Devices getDevices() {
         return devices;
     }

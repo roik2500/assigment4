@@ -117,7 +117,12 @@ public class Main {
 
 
                 case "manageticket":
-                    System.out.println("choose a child to manege");
+                    if(childrens.isEmpty())
+                    {
+                        System.out.println("there is no childrens, please add childrens first");
+                        break;
+                    }
+                    System.out.println("choose a child to manage");
                     for (Child c : childrens.values())//print all child
                         System.out.println(c);
                     s = scan.nextLine();
@@ -147,10 +152,12 @@ public class Main {
 
 
                                 if (d instanceof ExtremDevices) {
-                                    System.out.println("This is Extreme Device:");
+                                    System.out.println("This is Extreme Device, do you agree to let the child ride on it?");
                                     System.out.println("1. Agree");
                                     System.out.println("2. Disagree");
-                                    if (scan.nextInt() == 1) {
+                                    s = scan.nextLine();
+                                    s = s.toLowerCase();
+                                    if (s.equals("agree")) {
                                         c.getEnrollment().getElectronicCard().getGuardianControl().setAmountEntries(c.getEnrollment().getElectronicCard().getGuardianControl().getAmountEntries() + 1);//add an entry
                                         System.out.println("Adding successfully");
                                     } else {
@@ -174,6 +181,35 @@ public class Main {
                             break;
 
                         case "remove":
+                            chooseMore = true;
+                            while (chooseMore) {
+                                System.out.println("This devices you can remove:");
+                                int id = 1;
+                                for (Devices d : list_of_device.values()) {
+                                    if (d.childCheck(c)) {
+                                        if (c.getEnrollment().getElectronicCard().getGuardianControl().getAmountEntries() > 0) {
+                                            System.out.print(id + ":");//print all available devices
+                                            System.out.println(d);
+                                        }
+                                    }
+                                    id++;
+                                }
+
+
+                                System.out.println("Choose a device to remover");
+                                s = scan.nextLine();
+                                Devices d = list_of_device.get(s);//the device
+                                c.getEnrollment().getElectronicCard().getGuardianControl().setAmountEntries(c.getEnrollment().getElectronicCard().getGuardianControl().getAmountEntries() - 1);//add an entry
+                                System.out.println("Adding successfully");
+                                System.out.println("Do you want to choose more Device?");
+                                if (scan.hasNext("Yes")) {
+                                    chooseMore = true;
+                                } else {
+                                    chooseMore = false;
+                                }
+
+                            }
+
                             break;
                     }
                     break;
