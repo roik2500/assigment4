@@ -20,8 +20,8 @@ public class Main {
         Devices GiantWheel = new Devices("GiantWheel", 0, 0, 0);
         Devices Carrousel = new Devices("Carrousel", 0, 0, 8);
 
-        list_of_device.put("Mamba Ride", MambaRide);
-        list_of_device.put("Giant Wheel", GiantWheel);
+        list_of_device.put("MambaRide", MambaRide);
+        list_of_device.put("GiantWheel", GiantWheel);
         list_of_device.put("Carrousel", Carrousel);
 
         int id=1;
@@ -34,10 +34,10 @@ public class Main {
 
         while (out) {
             System.out.println("Type your choice: ");
-            System.out.println("Register");
-            System.out.println("Manage Ticket");
-            System.out.println("Exit park");
-            System.out.println("Exit");
+            System.out.println("register");
+            System.out.println("manageTicket ChildName");
+            System.out.println("exitpark");
+            System.out.println("exit");
 
             String s = scan.nextLine();
             String[] parts = s.split(" ");
@@ -162,12 +162,18 @@ public class Main {
 
                     String part2 = parts[1];
                     Child c = childrens.get(part2);
-                    int i = 0;
-                    System.out.println("2.1 Add ride");
-                    System.out.println("2.2 Remove ride");
+                    System.out.println("add RideName");
+                    System.out.println("remove RideName");
+                    System.out.println("Pick one device from the list");
+                    int i=1;
+                    for(Devices a: list_of_device.values() ) {
+                        System.out.println(String.valueOf(i)+". " + a);
+                        i++;
+                    }
                     String s_2 = scan.nextLine();
                     String[] parts_2 = s_2.split(" ");
                     String part1_2 = parts_2[0];
+                    part1_2=part1_2.toLowerCase();
                     String part2_2 = parts_2[1];
                     Devices d = list_of_device.get(part2_2);
                     switch (part1_2) {
