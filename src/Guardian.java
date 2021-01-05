@@ -13,6 +13,7 @@ public class Guardian {
 
     public Guardian(String name) {
     this.name=name;
+    this.enrollmentList=new ArrayList<Enrollment>();
     }
 
 

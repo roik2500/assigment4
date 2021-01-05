@@ -69,7 +69,7 @@ public class Main {
                         if (!ageBoolean) {
                             System.out.println("Enter the age of the child");
                             try {
-                                ageChild = scanner.nextInt();
+                                ageChild = scanner.nextFloat();
                                 ageBoolean = ageChild > 0;
                             } catch (InputMismatchException e) {
                             }
@@ -77,7 +77,7 @@ public class Main {
                         if (!heightBoolean) {
                             System.out.println("Enter the height of the child");
                             try {
-                                heightChild = scanner.nextInt();
+                                heightChild = scanner.nextFloat();
                                 heightBoolean = heightChild > 0;
                             } catch (InputMismatchException e) {
                             }
@@ -85,7 +85,7 @@ public class Main {
                         if (!weightBoolean) {
                             System.out.println("Enter the weight of the child");
                             try {
-                                weightChild = scanner.nextInt();
+                                weightChild = scanner.nextFloat();
                                 weightBoolean = weightChild > 0;
                             } catch (InputMismatchException e) {
                             }
@@ -119,6 +119,8 @@ public class Main {
                         } else //create credit dit card
                         {
                             credit = new CreditCard(mainCreditCompany, creditNumber, mainUser, amountLimit);
+                            mainUser.setCreditCard(credit);
+                            mainCreditCompany.addCreditCardInList(credit);
                         }
                         System.out.println("Registration succeeded! ☻");
                     } else
@@ -127,10 +129,14 @@ public class Main {
                     PurchasesAccount purchasesAccount = new PurchasesAccount(amountLimit);
                     ElectronicCard electronicCard = new ElectronicCard();
                     Enrollment enrollment = new Enrollment(electronicCard, purchasesAccount, electronicBracelet, boy, mainGuardian, String.valueOf(id), String.valueOf(password));
+                    mainUser.addIdToIdList(String.valueOf(id));
+                    id++;
+                    password++;
                     electronicBracelet.setEnrollment(enrollment);
                     purchasesAccount.setEnrollment(enrollment);
                     electronicCard.setEnrollment(enrollment);
                     boy.setEnrollment(enrollment);
+                    mainGuardian.addEnrollmentToList(enrollment);
 
                     /*
                     EnrollmentControl enrollmentControl = new EnrollmentControl();
@@ -210,6 +216,8 @@ public class Main {
                     ExitParkControl exitParkControl = new ExitParkControl(mainGuardian);
                     exitParkControl.setEnrollmentList(mainGuardian.getEnrollmentList());
                     exitParkControl.endVisitInPark();
+                    childrens.clear();
+                    users.clear();
                     break;
 
                 case "exit":

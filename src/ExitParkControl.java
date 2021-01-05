@@ -30,14 +30,14 @@ public class ExitParkControl {
         }
         user.deleteUser();
         user=null;
-        enrollmentlist=null;
+        enrollmentlist.clear();
         guardian=null;
     }
 
 
     //Setter
     public void setEnrollmentList(ArrayList<Enrollment> enrollmentlist) {
-        this.enrollmentlist = enrollmentlist;
+        this.enrollmentlist = (ArrayList<Enrollment>)enrollmentlist.clone();
     }
     //Getter
 }

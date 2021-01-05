@@ -1,9 +1,10 @@
 public class PurchasesAccount {
     private Enrollment enrollment;
     private double amount;
+    private double amountlimit;
 
-    public PurchasesAccount( double amount) {
-        this.amount = amount;
+    public PurchasesAccount( double amountlimit) {
+        this.amountlimit = amountlimit;
     }
 
     public void updateAmount(int price){
