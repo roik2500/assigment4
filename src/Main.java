@@ -14,7 +14,6 @@ public class Main {
         HashMap<String, Child> childrens = new HashMap<String, Child>();
         HashMap<String, Devices> list_of_device = new HashMap<String, Devices>();
         HashMap<Integer, Child> users = new HashMap<>();
-        HashMap<ElectronicCard,GuardianControl> electronicCardGuardianControlHashMap=new HashMap<ElectronicCard,GuardianControl>();
 
         Devices MambaRide = new ExtremDevices("MambaRide", 1.4, 0, 12);
         Devices GiantWheel = new Devices("GiantWheel", 0, 0, 0);
@@ -146,9 +145,6 @@ public class Main {
                     GuardianControl guardianControl2 = new GuardianControl(GiantWheel, electronicCard);
                     GuardianControl guardianControl3 = new GuardianControl(Carrousel, electronicCard);
 
-                    electronicCardGuardianControlHashMap.put(electronicCard, guardianControl);
-                    electronicCardGuardianControlHashMap.put(electronicCard, guardianControl2);
-                    electronicCardGuardianControlHashMap.put(electronicCard, guardianControl3);
 
                     electronicCard.addGuardiancontrol(MambaRide, guardianControl);
                     electronicCard.addGuardiancontrol(GiantWheel, guardianControl2);
