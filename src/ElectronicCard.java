@@ -1,7 +1,6 @@
 import java.util.HashMap;
 
 public class ElectronicCard {
-    private Enrollment enrollment;
     private HashMap<String,Devices> devices;
     private GuardianControl guardianControl;
     private double height;
@@ -10,18 +9,8 @@ public class ElectronicCard {
 
 
     public ElectronicCard() {
-        enrollment = null;
         devices=new HashMap<String, Devices>();
         guardianControl = new GuardianControl();
-    }
-
-
-    public Enrollment getEnrollment() {
-        return enrollment;
-    }
-
-    public void setEnrollment(Enrollment enrollment) {
-        this.enrollment = enrollment;
     }
 
     public HashMap<String, Devices> getDevices() {
@@ -34,7 +23,6 @@ public class ElectronicCard {
     }
 
     public void deleteElectronicCard(){
-        enrollment=null;
         guardianControl=null;
         devices.clear();
     }

@@ -19,7 +19,7 @@ public class User {
         idList.remove(id);
     }
 
-    public void removeAndPayment(int amount,String childID){
+    public void removeAndPayment(double amount,String childID){
         //this fun make the payment from the credit card and show if the payment approved or rejected
         removeIdFromIdList(childID);
         boolean boll=creditCard.makePayment(amount);

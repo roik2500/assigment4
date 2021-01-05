@@ -13,6 +13,7 @@ public class Main {
 
         HashMap<String, Child> childrens = new HashMap<String, Child>();
         HashMap<String, Devices> list_of_device = new HashMap<String, Devices>();
+        HashMap<Integer, Child> users = new HashMap<>();
 
         Devices MambaRide = new ExtremDevices("Mamba Ride", 1.4, 0, 12);
         Devices GiantWheel = new Devices("Giant Wheel", 0, 0, 0);
@@ -22,8 +23,6 @@ public class Main {
         list_of_device.put("Carrousel", Carrousel);
 
 
-        int id_count=1;
-        int password_count=200;
 
         Scanner scan = new Scanner(System.in);
         boolean out = true;
@@ -50,7 +49,11 @@ public class Main {
                     double ageChild = 0;
                     double heightChild = 0;
                     double weightChild = 0;
-                    Scanner scanner = new Scanner(System.in);
+                    Scanner scanner = new Scanner(System.in); //for child's details
+                    Scanner Scan = new Scanner(System.in); //for credit card's details
+                    CreditCard credit = null;
+                    int[] details = new int[2];
+                    //getting child's details
                     while (!isFinish) {
                         if (!nameBoolean) {
                             System.out.println("Enter the name of the child");
@@ -74,7 +77,7 @@ public class Main {
                             }
                         }
                         if (!weightBoolean) {
-                            System.out.println("Enter the height of the child");
+                            System.out.println("Enter the weight of the child");
                             try {
                                 weightChild = scanner.nextInt();
                                 weightBoolean = weightChild > 0;
@@ -83,36 +86,45 @@ public class Main {
                         }
                         isFinish = (nameBoolean && ageBoolean && weightBoolean && heightBoolean);
                     }
+
                     String creditNumber = "";
                     int amountLimit = -1;
                     boolean validCreditCard = false;
+                    //getting credit card's details
                     System.out.println("Enter your credit card number");
                     try {
-                        creditNumber = scanner.nextLine();
+                        creditNumber = Scan.nextLine();
                     } catch (InputMismatchException e) {
                     }
                     System.out.println("Enter your amount limit");
                     try {
-                        amountLimit = scanner.nextInt();
+                        amountLimit = Scan.nextInt();
                     } catch (InputMismatchException e) {
                     }
+                    Child boy =new Child(mainGuardian,heightChild,weightChild,ageChild,nameChild);
+                    childrens.put(boy.getName(),boy);
                     validCreditCard = mainCreditCompany.isValidDetails(amountLimit, creditNumber);
                     if (validCreditCard) {
-                        Child c =new Child(mainGuardian,heightChild,weightChild,ageChild,nameChild);
-                        childrens.put(c.getName(),c);
                         if(mainGuardian.getUser().getCreditCard()!=null) {
                             if (mainGuardian.getUser().getCreditCard().getCreditNumber().equals(creditNumber)) {
-                                /*
-                                החלטנו שיהיה רק כרטיס אחד למלווה?
-                                 */
-
+                                System.out.println("Registration could not be successful ☺");
+                                break;
                             }
-
+                        }
+                        else //create credit dit card
+                        {
+                            credit = new CreditCard(mainCreditCompany, creditNumber, mainUser, amountLimit);
                         }
                         System.out.println("Registration succeeded! ☻");
                     }
                     else
                         System.out.println("Registration could not be successful ☺");
+                    EnrollmentControl enrollmentControl = new EnrollmentControl();
+                    details = enrollmentControl.makeEnrollment(boy, mainCreditCompany, credit);
+                    PurchasesAccount purchasesAccount = enrollmentControl.createPurchasesAccount();
+                    ElectronicCard electCard = enrollmentControl.createElectronicCard();
+                    Enrollment enrollment = enrollmentControl.createEnrollment(electCard, purchasesAccount, boy, mainGuardian, String.format("{}", details[0]),  String.format("{}", details[1]));
+                    electCard.checkWeight(boy.getWeight(), boy.getHeight());
                     break;
 
 

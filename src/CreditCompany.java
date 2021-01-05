@@ -15,6 +15,8 @@ public class CreditCompany {
     }
 
     public boolean isValidDetails(int limitAmount, String creditNumber){
+        if(creditCards.isEmpty()) //if it's first credit
+            return true;
         CreditCard creditCard = creditCards.get(creditNumber);
         if(creditCard != null)
             return creditCard.getBalance() >= limitAmount; //based on the amount in credit card
@@ -22,7 +24,7 @@ public class CreditCompany {
     }
 
 
-    public boolean approvePayment(int amount, String creditNumber){
+    public boolean approvePayment(double amount, String creditNumber){
         CreditCard creditCard = creditCards.get(creditNumber);
         if(creditCard !=null) {
             double balance = creditCard.getBalance();

@@ -23,7 +23,7 @@ public class ExitParkControl {
         //this func go on each enrolment of guardian and child and calc the amount to pay and pay
         //and delete the enrollments, PurchasesAccount and the user of the guardian.
         for (Enrollment enrollment: this.enrollmentlist) {
-            int amount=enrollment.endVisitAndPay();
+            double amount=enrollment.endVisitAndPay();
             String childParkId =enrollment.getId();
             enrollment.deleteEnrollment();
             user.removeAndPayment(amount,childParkId);

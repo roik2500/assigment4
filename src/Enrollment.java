@@ -24,8 +24,8 @@ public class Enrollment {
     }
 
 
-    public int endVisitAndPay(){
-        int amount= purchasesAccount.getAmount();
+    public double endVisitAndPay(){
+        double amount= purchasesAccount.getAmount();
         return amount;
     }
 

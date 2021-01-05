@@ -1,8 +1,8 @@
 public class PurchasesAccount {
     private Enrollment enrollment;
-    private int amount;
+    private double amount;
 
-    public PurchasesAccount( int amount) {
+    public PurchasesAccount( double amount) {
         this.enrollment = enrollment;
         this.amount = amount;
     }
@@ -22,7 +22,7 @@ public class PurchasesAccount {
     public Enrollment getEnrollment() {
         return enrollment;
     }
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 

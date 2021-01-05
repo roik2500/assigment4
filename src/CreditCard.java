@@ -12,7 +12,7 @@ public class CreditCard {
         this.balance = balance;
     }
 
-    public boolean makePayment(int amount){
+    public boolean makePayment(double amount){
         return creditCompany.approvePayment(amount,this.creditNumber);
     }
 
