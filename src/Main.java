@@ -14,13 +14,18 @@ public class Main {
         HashMap<String, Child> childrens = new HashMap<String, Child>();
         HashMap<String, Devices> list_of_device = new HashMap<String, Devices>();
         HashMap<Integer, Child> users = new HashMap<>();
+        HashMap<ElectronicCard,GuardianControl> electronicCardGuardianControlHashMap=new HashMap<ElectronicCard,GuardianControl>();
 
-        Devices MambaRide = new ExtremDevices("Mamba Ride", 1.4, 0, 12);
-        Devices GiantWheel = new Devices("Giant Wheel", 0, 0, 0);
+        Devices MambaRide = new ExtremDevices("MambaRide", 1.4, 0, 12);
+        Devices GiantWheel = new Devices("GiantWheel", 0, 0, 0);
         Devices Carrousel = new Devices("Carrousel", 0, 0, 8);
+
         list_of_device.put("Mamba Ride", MambaRide);
         list_of_device.put("Giant Wheel", GiantWheel);
         list_of_device.put("Carrousel", Carrousel);
+
+        int id=1;
+        int password=200;
 
 
 
@@ -35,8 +40,10 @@ public class Main {
             System.out.println("Exit");
 
             String s = scan.nextLine();
-            s = s.toLowerCase();
-            switch (s) {
+            String[] parts = s.split(" ");
+            String part1 = parts[0];
+            part1 = part1.toLowerCase();
+            switch (part1) {
                 case "register":
                     //    EnrollmentControl enrollmentControl = new EnrollmentControl();
                     //child details and checking invalid inputs
@@ -101,129 +108,100 @@ public class Main {
                         amountLimit = Scan.nextInt();
                     } catch (InputMismatchException e) {
                     }
-                    Child boy =new Child(mainGuardian,heightChild,weightChild,ageChild,nameChild);
-                    childrens.put(boy.getName(),boy);
+                    Child boy = new Child(mainGuardian, heightChild, weightChild, ageChild, nameChild);
+                    childrens.put(boy.getName(), boy);
                     validCreditCard = mainCreditCompany.isValidDetails(amountLimit, creditNumber);
                     if (validCreditCard) {
-                        if(mainGuardian.getUser().getCreditCard()!=null) {
+                        if (mainGuardian.getUser().getCreditCard() != null) {
                             if (mainGuardian.getUser().getCreditCard().getCreditNumber().equals(creditNumber)) {
                                 System.out.println("Registration could not be successful ☺");
                                 break;
                             }
-                        }
-                        else //create credit dit card
+                        } else //create credit dit card
                         {
                             credit = new CreditCard(mainCreditCompany, creditNumber, mainUser, amountLimit);
                         }
                         System.out.println("Registration succeeded! ☻");
-                    }
-                    else
+                    } else
                         System.out.println("Registration could not be successful ☺");
+                    ElectronicBracelet electronicBracelet = new ElectronicBracelet();
+                    PurchasesAccount purchasesAccount = new PurchasesAccount(amountLimit);
+                    ElectronicCard electronicCard = new ElectronicCard();
+                    Enrollment enrollment = new Enrollment(electronicCard, purchasesAccount, electronicBracelet, boy, mainGuardian, String.valueOf(id), String.valueOf(password));
+                    electronicBracelet.setEnrollment(enrollment);
+                    purchasesAccount.setEnrollment(enrollment);
+                    electronicCard.setEnrollment(enrollment);
+                    boy.setEnrollment(enrollment);
+
+                    /*
                     EnrollmentControl enrollmentControl = new EnrollmentControl();
                     details = enrollmentControl.makeEnrollment(boy, mainCreditCompany, credit);
                     PurchasesAccount purchasesAccount = enrollmentControl.createPurchasesAccount();
                     ElectronicCard electCard = enrollmentControl.createElectronicCard();
                     Enrollment enrollment = enrollmentControl.createEnrollment(electCard, purchasesAccount, boy, mainGuardian, String.format("{}", details[0]),  String.format("{}", details[1]));
                     electCard.checkWeight(boy.getWeight(), boy.getHeight());
+
+                     */
+                    GuardianControl guardianControl = new GuardianControl(MambaRide, electronicCard);
+                    GuardianControl guardianControl2 = new GuardianControl(GiantWheel, electronicCard);
+                    GuardianControl guardianControl3 = new GuardianControl(Carrousel, electronicCard);
+
+                    electronicCardGuardianControlHashMap.put(electronicCard, guardianControl);
+                    electronicCardGuardianControlHashMap.put(electronicCard, guardianControl2);
+                    electronicCardGuardianControlHashMap.put(electronicCard, guardianControl3);
+
+                    electronicCard.addGuardiancontrol(MambaRide, guardianControl);
+                    electronicCard.addGuardiancontrol(GiantWheel, guardianControl2);
+                    electronicCard.addGuardiancontrol(Carrousel, guardianControl3);
+
+
                     break;
 
 
                 case "manageticket":
-                    if(childrens.isEmpty())
-                    {
-                        System.out.println("there is no childrens, please add childrens first");
-                        break;
-                    }
-                    System.out.println("choose a child to manage");
-                    for (Child c : childrens.values())//print all child
-                        System.out.println(c);
-                    s = scan.nextLine();
-                    Child c = childrens.get(s);//pick a child
+
+                    String part2 = parts[1];
+                    Child c = childrens.get(part2);
+                    int i = 0;
                     System.out.println("2.1 Add ride");
                     System.out.println("2.2 Remove ride");
-                    s = scan.nextLine();
-                    s = s.toLowerCase();
-                    switch (s) {
+                    String s_2 = scan.nextLine();
+                    String[] parts_2 = s_2.split(" ");
+                    String part1_2 = parts_2[0];
+                    String part2_2 = parts_2[1];
+                    Devices d = list_of_device.get(part2_2);
+                    switch (part1_2) {
                         case "add":
-                            boolean chooseMore = true;
-                            while (chooseMore) {
-                                System.out.println("This devices are available for this child");
-                                int id = 1;
-                                for (Devices d : list_of_device.values()) {
-                                    if (d.childCheck(c)) {
-                                        System.out.print(id + ":");//print all available devices
-                                        System.out.println(d);
-                                    }
-                                    id++;
-                                }
-
-
-                                System.out.println("Choose a device to add");
+                            if (d instanceof ExtremDevices) {
+                                System.out.println("This is Extreme Device, do you agree to let the child ride on it?");
+                                System.out.println("1. Agree");
+                                System.out.println("2. Disagree");
                                 s = scan.nextLine();
-                                Devices d = list_of_device.get(s);//the device
-
-
-                                if (d instanceof ExtremDevices) {
-                                    System.out.println("This is Extreme Device, do you agree to let the child ride on it?");
-                                    System.out.println("1. Agree");
-                                    System.out.println("2. Disagree");
-                                    s = scan.nextLine();
-                                    s = s.toLowerCase();
-                                    if (s.equals("agree")) {
-                                        c.getEnrollment().getElectronicCard().getGuardianControl().setAmountEntries(c.getEnrollment().getElectronicCard().getGuardianControl().getAmountEntries() + 1);//add an entry
-                                        System.out.println("Adding successfully");
-                                    } else {
-                                        System.out.println("The guardian does not agreed");
-                                    }
-                                } else {
-                                    c.getEnrollment().getElectronicCard().getGuardianControl().setAmountEntries(c.getEnrollment().getElectronicCard().getGuardianControl().getAmountEntries() + 1);//add an entry
+                                s = s.toLowerCase();
+                                if (s.equals("agree")) {
+                                    c.getEnrollment().getElectronicCard().getGuardiancontrol(d).setAmountEntries(c.getEnrollment().getElectronicCard().getGuardiancontrol(d).getAmountEntries() + 1);//add an entry
                                     System.out.println("Adding successfully");
-                                }
-
-                                System.out.println("Do you want to choose more Device?");
-                                if (scan.hasNext("Yes")) {
-                                    chooseMore = true;
                                 } else {
-                                    chooseMore = false;
+                                    System.out.println("The guardian does not agreed");
                                 }
-
+                            } else {
+                                c.getEnrollment().getElectronicCard().getGuardiancontrol(d).setAmountEntries(c.getEnrollment().getElectronicCard().getGuardiancontrol(d).getAmountEntries() + 1);//add an entry
+                                System.out.println("Adding successfully");
                             }
-
-
                             break;
 
                         case "remove":
-                            chooseMore = true;
-                            while (chooseMore) {
-                                System.out.println("This devices you can remove:");
-                                int id = 1;
-                                for (Devices d : list_of_device.values()) {
-                                    if (d.childCheck(c)) {
-                                        if (c.getEnrollment().getElectronicCard().getGuardianControl().getAmountEntries() > 0) {
-                                            System.out.print(id + ":");//print all available devices
-                                            System.out.println(d);
-                                        }
-                                    }
-                                    id++;
-                                }
-
-
-                                System.out.println("Choose a device to remover");
-                                s = scan.nextLine();
-                                Devices d = list_of_device.get(s);//the device
-                                c.getEnrollment().getElectronicCard().getGuardianControl().setAmountEntries(c.getEnrollment().getElectronicCard().getGuardianControl().getAmountEntries() - 1);//add an entry
-                                System.out.println("Adding successfully");
-                                System.out.println("Do you want to choose more Device?");
-                                if (scan.hasNext("Yes")) {
-                                    chooseMore = true;
-                                } else {
-                                    chooseMore = false;
-                                }
-
+                            d = list_of_device.get(part2_2);//the device
+                            if(c.getEnrollment().getElectronicCard().getGuardiancontrol(d).getAmountEntries()==0) {
+                                System.out.println("There is no available entries");
+                                break;
                             }
-
+                            c.getEnrollment().getElectronicCard().getGuardiancontrol(d).setAmountEntries(c.getEnrollment().getElectronicCard().getGuardiancontrol(d).getAmountEntries() - 1);//add an entry
+                            System.out.println("Removed successfully");
                             break;
+
                     }
+
                     break;
 
                 case "exitpark":

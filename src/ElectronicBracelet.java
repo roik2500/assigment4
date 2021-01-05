@@ -1,7 +1,6 @@
 public class ElectronicBracelet {
     private Enrollment enrollment;
-    public ElectronicBracelet(Enrollment enrollment) {
-        this.enrollment = enrollment;
+    public ElectronicBracelet() {
     }
 
 

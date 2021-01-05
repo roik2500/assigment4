@@ -13,8 +13,8 @@ public class Enrollment {
 
     }
 
-    public Enrollment(ElectronicCard electronicCard, PurchasesAccount purchasesAccount, Child child, Guardian guardian, String id, String password) {
-        //this.electronicBracelet = electronicBracelet;
+    public Enrollment(ElectronicCard electronicCard, PurchasesAccount purchasesAccount,ElectronicBracelet electronicBracelet, Child child, Guardian guardian, String id, String password) {
+        this.electronicBracelet = electronicBracelet;
         this.electronicCard = electronicCard;
         this.purchasesAccount = purchasesAccount;
         this.child = child;

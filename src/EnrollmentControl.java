@@ -40,9 +40,12 @@ public class EnrollmentControl{
         return new ElectronicCard();
     }
 
+    /*
     public Enrollment createEnrollment(ElectronicCard electronicCard, PurchasesAccount purchasesAccount, Child child, Guardian guardian, String id, String password){
         return new Enrollment(electronicCard, purchasesAccount, child, guardian, id, password);
     }
+
+     */
 
     //getter
     public Enrollment getEnrollment() {

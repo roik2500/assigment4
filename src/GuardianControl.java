@@ -5,6 +5,11 @@ public class GuardianControl {
     private TicketStatus status;
     private double limitTime;
 
+    public GuardianControl(Devices devices, ElectronicCard electronicCard) {
+        this.devices = devices;
+        this.electronicCard = electronicCard;
+        this.amountEntries=0;
+    }
 
     public Devices getDevices() {
         return devices;

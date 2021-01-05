@@ -3,7 +3,6 @@ public class PurchasesAccount {
     private double amount;
 
     public PurchasesAccount( double amount) {
-        this.enrollment = enrollment;
         this.amount = amount;
     }
 
