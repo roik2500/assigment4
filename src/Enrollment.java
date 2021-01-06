@@ -1,5 +1,4 @@
 public class Enrollment {
-    private ElectronicBracelet electronicBracelet;
     private ElectronicCard electronicCard;
     private PurchasesAccount purchasesAccount;
     private Child child;
@@ -13,8 +12,7 @@ public class Enrollment {
 
     }
 
-    public Enrollment(ElectronicCard electronicCard, PurchasesAccount purchasesAccount,ElectronicBracelet electronicBracelet, Child child, Guardian guardian, String id, String password) {
-        this.electronicBracelet = electronicBracelet;
+    public Enrollment(ElectronicCard electronicCard, PurchasesAccount purchasesAccount, Child child, Guardian guardian, String id, String password) {
         this.electronicCard = electronicCard;
         this.purchasesAccount = purchasesAccount;
         this.child = child;
@@ -33,22 +31,11 @@ public class Enrollment {
         purchasesAccount.deletePurchasesAccount();
         child.setEnrollment(null);
         guardian.removeEnrollmentToList(this);
-        electronicBracelet=null;
         electronicCard.deleteElectronicCard();
         electronicCard=null;
     }
 
 
-
-
-
-    public ElectronicBracelet getElectronicBracelet() {
-        return electronicBracelet;
-    }
-
-    public void setElectronicBracelet(ElectronicBracelet electronicBracelet) {
-        this.electronicBracelet = electronicBracelet;
-    }
 
     public ElectronicCard getElectronicCard() {
         return electronicCard;

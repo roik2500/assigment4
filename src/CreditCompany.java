@@ -5,12 +5,10 @@ import java.util.HashSet;
 
 public class CreditCompany {
     private String companyName;
-    private int balance;
     private HashMap<String,CreditCard> creditCards;
 
-    public CreditCompany(String companyName, int balance) {
+    public CreditCompany(String companyName) {
         this.companyName = companyName;
-        this.balance = balance;
         this.creditCards=new HashMap<String,CreditCard>();
     }
 

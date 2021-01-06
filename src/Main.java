@@ -9,7 +9,7 @@ public class Main {
         User mainUser = new User();
         mainGuardian.setUser(mainUser);
         mainUser.setGuardian(mainGuardian);
-        CreditCompany mainCreditCompany = new CreditCompany("cal", 9999);
+        CreditCompany mainCreditCompany = new CreditCompany("cal");
 
         HashMap<String, Child> childrens = new HashMap<String, Child>();
         HashMap<String, Devices> list_of_device = new HashMap<String, Devices>();
@@ -23,20 +23,16 @@ public class Main {
         list_of_device.put("GiantWheel", GiantWheel);
         list_of_device.put("Carrousel", Carrousel);
 
-        int id=1;
-        int password=200;
-
-
 
         Scanner scan = new Scanner(System.in);
         boolean out = true;
 
         while (out) {
             System.out.println("Type your choice: ");
-            System.out.println("register");
-            System.out.println("manageTicket ChildName");
-            System.out.println("exitpark");
-            System.out.println("exit");
+            System.out.println("1. register");
+            System.out.println("2. manageTicket ChildName");
+            System.out.println("3. exitpark");
+            System.out.println("4. exit");
 
             String s = scan.nextLine();
             String[] parts = s.split(" ");
@@ -57,6 +53,7 @@ public class Main {
                     double weightChild = 0;
                     Scanner scanner = new Scanner(System.in); //for child's details
                     Scanner Scan = new Scanner(System.in); //for credit card's details
+                    Scanner Scanner = new Scanner(System.in); //for  purchase account
                     CreditCard credit = null;
                     int[] details = new int[2];
                     //getting child's details
@@ -72,6 +69,7 @@ public class Main {
                                 ageChild = scanner.nextFloat();
                                 ageBoolean = ageChild > 0;
                             } catch (InputMismatchException e) {
+                                scanner.next();
                             }
                         }
                         if (!heightBoolean) {
@@ -80,6 +78,7 @@ public class Main {
                                 heightChild = scanner.nextFloat();
                                 heightBoolean = heightChild > 0;
                             } catch (InputMismatchException e) {
+                                scanner.next();
                             }
                         }
                         if (!weightBoolean) {
@@ -88,64 +87,72 @@ public class Main {
                                 weightChild = scanner.nextFloat();
                                 weightBoolean = weightChild > 0;
                             } catch (InputMismatchException e) {
+                                scanner.next();
                             }
                         }
                         isFinish = (nameBoolean && ageBoolean && weightBoolean && heightBoolean);
                     }
-
+                    int p_a_limit = -1;
+                    boolean bool_p_a_limit = false;
+                    if(!bool_p_a_limit) {
+                        try {
+                            System.out.println("Enter your amount limit of purchases account");
+                            p_a_limit = Scanner.nextInt();
+                            bool_p_a_limit = p_a_limit > 0;
+                        } catch (InputMismatchException e) {
+                        }
+                    }
                     String creditNumber = "";
                     int amountLimit = -1;
                     boolean validCreditCard = false;
-                    //getting credit card's details
-                    System.out.println("Enter your credit card number");
-                    try {
-                        creditNumber = Scan.nextLine();
-                    } catch (InputMismatchException e) {
-                    }
-                    System.out.println("Enter your amount limit");
-                    try {
-                        amountLimit = Scan.nextInt();
-                    } catch (InputMismatchException e) {
-                    }
-                    validCreditCard = mainCreditCompany.isValidDetails(amountLimit, creditNumber);
-                    if (validCreditCard) {
-                        if (mainGuardian.getUser().getCreditCard() != null) {
-                            if (!(mainGuardian.getUser().getCreditCard().getCreditNumber().equals(creditNumber))) {
-                                System.out.println("Registration could not be successful ☺");
-                                break;
-                            }
-                        } else //create credit dit card
-                        {
-                            credit = new CreditCard(mainCreditCompany, creditNumber, mainUser, amountLimit);
-                            mainUser.setCreditCard(credit);
-                            mainCreditCompany.addCreditCardInList(credit);
+                    if (mainGuardian.getUser().getCreditCard() == null) {
+                        //getting credit card's details
+                        System.out.println("Enter your credit card number");
+                        try {
+                            creditNumber = Scan.nextLine();
+                        } catch (InputMismatchException e) {
+                            scanner.next();
                         }
-                        System.out.println("Registration succeeded! ☻");
-                    } else
-                        System.out.println("Registration could not be successful ☺");
+                        System.out.println("Enter your amount limit");
+                        try {
+                            amountLimit = Scan.nextInt();
+                        } catch (InputMismatchException e) {
+                            scanner.next();
+                        }
+
+                        validCreditCard = mainCreditCompany.isValidDetails(amountLimit, creditNumber);
+                        if (validCreditCard) {
+                            if (mainGuardian.getUser().getCreditCard() != null) {
+                                if (!(mainGuardian.getUser().getCreditCard().getCreditNumber().equals(creditNumber))) {
+                                    System.out.println("Registration could not be successful ☺");
+                                    break;
+                                }
+                            } else //create credit card
+                            {
+                                credit = new CreditCard(mainCreditCompany, creditNumber, mainUser, amountLimit);
+                                mainUser.setCreditCard(credit);
+                                mainCreditCompany.addCreditCardInList(credit);
+                            }
+
+                        } else {
+                            System.out.println("Registration could not be successful ☺");
+                            break;
+                        }
+                        }
+                    System.out.println("Registration succeeded! ☻");
+
                     Child boy = new Child(mainGuardian, heightChild, weightChild, ageChild, nameChild);
                     childrens.put(boy.getName(), boy);
-                    ElectronicBracelet electronicBracelet = new ElectronicBracelet();
-                    PurchasesAccount purchasesAccount = new PurchasesAccount(amountLimit);
-                    ElectronicCard electronicCard = new ElectronicCard();
-                    Enrollment enrollment = new Enrollment(electronicCard, purchasesAccount, electronicBracelet, boy, mainGuardian, String.valueOf(id), String.valueOf(password));
-                    mainUser.addIdToIdList(String.valueOf(id));
-                    id++;
-                    password++;
-                    electronicBracelet.setEnrollment(enrollment);
-                    purchasesAccount.setEnrollment(enrollment);
+                    EnrollmentControl enrollmentControl = new EnrollmentControl();
+                    details = enrollmentControl.makeEnrollment(boy, mainCreditCompany, credit);
+                    PurchasesAccount purchasesAccount = enrollmentControl.createPurchasesAccount(p_a_limit);
+                    ElectronicCard electronicCard = enrollmentControl.createElectronicCard();
+                    Enrollment enrollment = enrollmentControl.createEnrollment(electronicCard, purchasesAccount, boy, mainGuardian, String.format("{}", details[0]),  String.format("{}", details[1]));
+                    electronicCard.checkWeight(boy.getWeight(), boy.getHeight());
                     electronicCard.setEnrollment(enrollment);
                     boy.setEnrollment(enrollment);
                     mainGuardian.addEnrollmentToList(enrollment);
-
-                    /*
-                    EnrollmentControl enrollmentControl = new EnrollmentControl();
-                    details = enrollmentControl.makeEnrollment(boy, mainCreditCompany, credit);
-                    PurchasesAccount purchasesAccount = enrollmentControl.createPurchasesAccount();
-                    ElectronicCard electCard = enrollmentControl.createElectronicCard();
-                    Enrollment enrollment = enrollmentControl.createEnrollment(electCard, purchasesAccount, boy, mainGuardian, String.format("{}", details[0]),  String.format("{}", details[1]));
-                    electCard.checkWeight(boy.getWeight(), boy.getHeight());
-                     */
+                    purchasesAccount.setEnrollment(enrollment);
 
                     GuardianControl guardianControl = new GuardianControl(MambaRide, electronicCard);
                     GuardianControl guardianControl2 = new GuardianControl(GiantWheel, electronicCard);
@@ -158,7 +165,6 @@ public class Main {
 
                     systemObjects.add(boy);
                     systemObjects.add(credit);
-                    systemObjects.add(electronicBracelet);
                     systemObjects.add(purchasesAccount);
                     systemObjects.add(electronicCard);
                     systemObjects.add(enrollment);
@@ -172,9 +178,13 @@ public class Main {
                 case "manageticket":
 
                     String part2 = parts[1];
+                    if(!(childrens.containsKey(part2))){
+                        System.out.println("No child with that name");
+                        break;
+                    }
                     Child c = childrens.get(part2);
-                    System.out.println("add RideName");
-                    System.out.println("remove RideName");
+                    System.out.println("2.1 add RideName");
+                    System.out.println("2.2 remove RideName");
                     System.out.println("Pick one device from the list");
                     int i=1;
                     for(Devices a: list_of_device.values() ) {
@@ -188,6 +198,10 @@ public class Main {
                     String part1_2 = parts_2[0];
                     part1_2=part1_2.toLowerCase();
                     String part2_2 = parts_2[1];
+                    if(!(list_of_device.containsKey(part2_2))){
+                        System.out.println("No device with that name");
+                        break;
+                    }
                     Devices d = list_of_device.get(part2_2);
                     switch (part1_2) {
                         case "add":

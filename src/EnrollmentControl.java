@@ -10,13 +10,11 @@ public class EnrollmentControl{
     private User user;
     private CreditCard creditCard;
     //private  Guardian guardian;
-    private int id_count;
-    private int password_count;
+    private static int id_count = 1;
+    private static int password_count = 1000;
 
 
     public EnrollmentControl() {
-        id_count = 1;
-        password_count = 1000;
     }
 
     public int[] makeEnrollment(Child child, CreditCompany creditCompany, CreditCard credit) {
@@ -32,7 +30,7 @@ public class EnrollmentControl{
     }
 
     //creation
-    public PurchasesAccount createPurchasesAccount(){
+    public PurchasesAccount createPurchasesAccount(int p_a_limit){
         return new PurchasesAccount(creditCard.getBalance());
     }
 
@@ -40,12 +38,10 @@ public class EnrollmentControl{
         return new ElectronicCard();
     }
 
-    /*
+
     public Enrollment createEnrollment(ElectronicCard electronicCard, PurchasesAccount purchasesAccount, Child child, Guardian guardian, String id, String password){
         return new Enrollment(electronicCard, purchasesAccount, child, guardian, id, password);
     }
-
-     */
 
     //getter
     public Enrollment getEnrollment() {
