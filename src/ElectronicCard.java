@@ -26,7 +26,6 @@ public class ElectronicCard {
     }
 
     public void deleteElectronicCard(){
-        guardianControls=null;
         devices.clear();
         guardianControls.clear();
     }

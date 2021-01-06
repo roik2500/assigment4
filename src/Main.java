@@ -144,7 +144,7 @@ public class Main {
                     Child boy = new Child(mainGuardian, heightChild, weightChild, ageChild, nameChild);
                     childrens.put(boy.getName(), boy);
                     EnrollmentControl enrollmentControl = new EnrollmentControl();
-                    details = enrollmentControl.makeEnrollment(boy, mainCreditCompany, credit);
+                    details = enrollmentControl.makeEnrollment(boy, mainCreditCompany, mainUser.getCreditCard());
                     PurchasesAccount purchasesAccount = enrollmentControl.createPurchasesAccount(p_a_limit);
                     ElectronicCard electronicCard = enrollmentControl.createElectronicCard();
                     Enrollment enrollment = enrollmentControl.createEnrollment(electronicCard, purchasesAccount, boy, mainGuardian, String.format("{}", details[0]),  String.format("{}", details[1]));
