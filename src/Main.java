@@ -239,6 +239,7 @@ public class Main {
                     exitParkControl.endVisitInPark();
                     childrens.clear();
                     users.clear();
+                    systemObjects.clear();
                     break;
 
                 case "exit":
