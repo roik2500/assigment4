@@ -7,23 +7,27 @@ public class Devices {
     protected String Name;
     protected double Price;
 
-    public Devices(String Name, double minHeight, double maxWeight, double minAge) {
+    public Devices(String Name, double minHeight, double maxWeight, double minAge,double Price) {
        // this.park = park;
        // this.manufacturer = manufacturer;
         this.Name=Name;
         this.minHeight = minHeight;
         this.maxWeight = maxWeight;
         this.minAge = minAge;
-
+        this.Price=Price;
     }
     protected boolean childCheck(Child c){
         if(c.getAge()<minAge)
             return false;
         if(c.getHeight()<minHeight)
             return false;
-        if(c.getWeight()>maxWeight)
+        if((c.getWeight()>maxWeight)&&(maxWeight!=0))
             return false;
         return true;
+    }
+
+    public double getPrice() {
+        return Price;
     }
 
     @Override

@@ -16,8 +16,8 @@ public class Main {
         HashMap<Integer, Child> users = new HashMap<>();
 
         Devices MambaRide = new ExtremDevices("MambaRide", 1.4, 0, 12);
-        Devices GiantWheel = new Devices("GiantWheel", 0, 0, 0);
-        Devices Carrousel = new Devices("Carrousel", 0, 0, 8);
+        Devices GiantWheel = new Devices("GiantWheel", 0, 0, 0,0);
+        Devices Carrousel = new Devices("Carrousel", 0, 0, 8,0);
 
         list_of_device.put("MambaRide", MambaRide);
         list_of_device.put("GiantWheel", GiantWheel);
@@ -107,12 +107,10 @@ public class Main {
                         amountLimit = Scan.nextInt();
                     } catch (InputMismatchException e) {
                     }
-                    Child boy = new Child(mainGuardian, heightChild, weightChild, ageChild, nameChild);
-                    childrens.put(boy.getName(), boy);
                     validCreditCard = mainCreditCompany.isValidDetails(amountLimit, creditNumber);
                     if (validCreditCard) {
                         if (mainGuardian.getUser().getCreditCard() != null) {
-                            if (mainGuardian.getUser().getCreditCard().getCreditNumber().equals(creditNumber)) {
+                            if (!(mainGuardian.getUser().getCreditCard().getCreditNumber().equals(creditNumber))) {
                                 System.out.println("Registration could not be successful ☺");
                                 break;
                             }
@@ -125,6 +123,8 @@ public class Main {
                         System.out.println("Registration succeeded! ☻");
                     } else
                         System.out.println("Registration could not be successful ☺");
+                    Child boy = new Child(mainGuardian, heightChild, weightChild, ageChild, nameChild);
+                    childrens.put(boy.getName(), boy);
                     ElectronicBracelet electronicBracelet = new ElectronicBracelet();
                     PurchasesAccount purchasesAccount = new PurchasesAccount(amountLimit);
                     ElectronicCard electronicCard = new ElectronicCard();
@@ -145,8 +145,8 @@ public class Main {
                     ElectronicCard electCard = enrollmentControl.createElectronicCard();
                     Enrollment enrollment = enrollmentControl.createEnrollment(electCard, purchasesAccount, boy, mainGuardian, String.format("{}", details[0]),  String.format("{}", details[1]));
                     electCard.checkWeight(boy.getWeight(), boy.getHeight());
-
                      */
+
                     GuardianControl guardianControl = new GuardianControl(MambaRide, electronicCard);
                     GuardianControl guardianControl2 = new GuardianControl(GiantWheel, electronicCard);
                     GuardianControl guardianControl3 = new GuardianControl(Carrousel, electronicCard);
@@ -156,6 +156,15 @@ public class Main {
                     electronicCard.addGuardiancontrol(GiantWheel, guardianControl2);
                     electronicCard.addGuardiancontrol(Carrousel, guardianControl3);
 
+                    systemObjects.add(boy);
+                    systemObjects.add(credit);
+                    systemObjects.add(electronicBracelet);
+                    systemObjects.add(purchasesAccount);
+                    systemObjects.add(electronicCard);
+                    systemObjects.add(enrollment);
+                    systemObjects.add(guardianControl);
+                    systemObjects.add(guardianControl2);
+                    systemObjects.add(guardianControl3);
 
                     break;
 
@@ -169,8 +178,10 @@ public class Main {
                     System.out.println("Pick one device from the list");
                     int i=1;
                     for(Devices a: list_of_device.values() ) {
-                        System.out.println(String.valueOf(i)+". " + a);
-                        i++;
+                        if(a.childCheck(c)) {
+                            System.out.println(String.valueOf(i) + ". " + a);
+                            i++;
+                        }
                     }
                     String s_2 = scan.nextLine();
                     String[] parts_2 = s_2.split(" ");
@@ -187,14 +198,23 @@ public class Main {
                                 s = scan.nextLine();
                                 s = s.toLowerCase();
                                 if (s.equals("agree")) {
-                                    c.getEnrollment().getElectronicCard().getGuardiancontrol(d).setAmountEntries(c.getEnrollment().getElectronicCard().getGuardiancontrol(d).getAmountEntries() + 1);//add an entry
-                                    System.out.println("Adding successfully");
+                                    if(mainGuardian.getUser().getCreditCard().getBalance()>=d.getPrice()) {
+                                        c.getEnrollment().getElectronicCard().getGuardiancontrol(d).setAmountEntries(c.getEnrollment().getElectronicCard().getGuardiancontrol(d).getAmountEntries() + 1);//add an entry
+                                        mainGuardian.getUser().getCreditCard().setBalance(mainGuardian.getUser().getCreditCard().getBalance()-d.getPrice());
+                                        System.out.println("Adding successfully");
+                                    }
+                                    else{
+                                        System.out.println("No money!");
+                                    }
                                 } else {
                                     System.out.println("The guardian does not agreed");
                                 }
                             } else {
-                                c.getEnrollment().getElectronicCard().getGuardiancontrol(d).setAmountEntries(c.getEnrollment().getElectronicCard().getGuardiancontrol(d).getAmountEntries() + 1);//add an entry
-                                System.out.println("Adding successfully");
+                                if(mainGuardian.getUser().getCreditCard().getBalance()>=d.getPrice()) {
+                                    c.getEnrollment().getElectronicCard().getGuardiancontrol(d).setAmountEntries(c.getEnrollment().getElectronicCard().getGuardiancontrol(d).getAmountEntries() + 1);//add an entry
+                                    mainGuardian.getUser().getCreditCard().setBalance(mainGuardian.getUser().getCreditCard().getBalance() - d.getPrice());
+                                    System.out.println("Adding successfully");
+                                }
                             }
                             break;
 
@@ -205,6 +225,7 @@ public class Main {
                                 break;
                             }
                             c.getEnrollment().getElectronicCard().getGuardiancontrol(d).setAmountEntries(c.getEnrollment().getElectronicCard().getGuardiancontrol(d).getAmountEntries() - 1);//add an entry
+                            mainGuardian.getUser().getCreditCard().setBalance(mainGuardian.getUser().getCreditCard().getBalance() + d.getPrice());
                             System.out.println("Removed successfully");
                             break;
 
