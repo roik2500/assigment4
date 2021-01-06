@@ -6,11 +6,10 @@ public class Main {
 
     public static void main(String[] args) {
         Guardian mainGuardian = new Guardian("bob");
+        CreditCompany mainCreditCompany = new CreditCompany("cal");
         User mainUser = new User();
         mainGuardian.setUser(mainUser);
         mainUser.setGuardian(mainGuardian);
-        CreditCompany mainCreditCompany = new CreditCompany("cal");
-
         HashMap<String, Child> childrens = new HashMap<String, Child>();
         HashMap<String, Devices> list_of_device = new HashMap<String, Devices>();
         HashMap<Integer, Child> users = new HashMap<>();
@@ -42,6 +41,10 @@ public class Main {
                 case "register":
                     //    EnrollmentControl enrollmentControl = new EnrollmentControl();
                     //child details and checking invalid inputs
+                    if(mainGuardian.getUser()==null){
+                        mainGuardian.setUser(mainUser);
+                        mainUser.setGuardian(mainGuardian);
+                    }
                     boolean isFinish = false;
                     boolean ageBoolean = false;
                     boolean nameBoolean = false;
