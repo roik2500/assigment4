@@ -28,6 +28,7 @@ public class ElectronicCard {
     public void deleteElectronicCard(){
         guardianControls=null;
         devices.clear();
+        guardianControls.clear();
     }
 
     public void setDevices(HashMap<String, Devices> devices) {
